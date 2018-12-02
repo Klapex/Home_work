@@ -1,0 +1,56 @@
+package Interfejsy.samouczek_pr.Try_catch_zadanie;
+
+import java.util.Scanner;
+
+public class Sqrt {
+
+    static double arg = 2;
+    static boolean isRightArg = true;
+    // zmienne globalne - aby kazda metoda w tej klasie to widziala
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Sqrt sqrt = new Sqrt();
+
+        System.out.println("Calculating sqrt of an argument.");
+
+        while (isRightArg) {
+            System.out.println("Input number:");
+            String parsedata = input.nextLine();
+            try {
+                arg = Double.parseDouble(parsedata);
+                isRightArg = false; // jesli chce zakonczyc petle na koncu.
+                // break;// jesli chce przerwac petle teraz
+
+            } catch (NumberFormatException e) {
+                System.out.println("Input numbers only pls.Other data types not allowed.");
+            }
+
+            sqrt.nextTry();
+        }
+
+        // Calculations
+        System.out.println("Sqrt of arg is:" + sqrt.sqrtCalc(arg));
+    }
+
+    public void nextTry() {
+
+        while (!isRightArg) {
+            try {
+                sqrtCalc(arg);
+                break;
+            } catch (IllegalArgumentException exception) {
+                System.out.println("arg<0 is not allowed you ....");
+                isRightArg = true;
+            }
+        }
+    }
+
+    public double sqrtCalc(double arg) {
+        if (arg < 0) {
+            throw new IllegalArgumentException("O jacie");
+        }
+        return Math.sqrt(arg);
+    }
+}
+
